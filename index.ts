@@ -2,7 +2,7 @@
 import globals from "globals";
 import { type ConfigWithExtends } from "typescript-eslint";
 
-const config: ConfigWithExtends[] = [
+export const getConfig = (dirname: string): ConfigWithExtends[] => [
   {
     ignores: ["lib/**/*", "dist/**/*"],
   },
@@ -16,8 +16,7 @@ const config: ConfigWithExtends[] = [
       },
       parserOptions: {
         project: true,
-        // @ts-expect-error will work in js
-        tsconfigRootDir: import.meta.dirname,
+        tsconfigRootDir: dirname,
       },
     },
     rules: {
@@ -45,5 +44,3 @@ const config: ConfigWithExtends[] = [
     },
   },
 ];
-
-export default config;
