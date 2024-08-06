@@ -1,20 +1,13 @@
 // @ts-check
-import eslint from "@eslint/js";
-import eslintConfigPrettier from "eslint-config-prettier";
-import eslintPluginPrettierRecommended from "eslint-plugin-prettier/recommended";
 import globals from "globals";
-import tseslint, { type Config } from "typescript-eslint";
+import { type ConfigWithExtends } from "typescript-eslint";
 
-const config: Config = tseslint.config(
-  eslint.configs.recommended,
-  ...tseslint.configs.recommendedTypeChecked,
-  eslintConfigPrettier,
-  // @ts-expect-error Prettier is behind the times
-  eslintPluginPrettierRecommended,
+const config: ConfigWithExtends[] = [
   {
     ignores: ["lib/**/*", "dist/**/*"],
   },
   {
+    files: ["src/**/*.ts"],
     languageOptions: {
       ecmaVersion: 2022,
       sourceType: "module",
@@ -24,7 +17,7 @@ const config: Config = tseslint.config(
       parserOptions: {
         project: true,
         // @ts-expect-error will work in js
-        tsconfigRootDir: __dirname,
+        tsconfigRootDir: import.meta.dirname,
       },
     },
     rules: {
@@ -51,6 +44,6 @@ const config: Config = tseslint.config(
       "@typescript-eslint/ban-ts-comment": "off",
     },
   },
-);
+];
 
 export default config;
