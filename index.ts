@@ -23,6 +23,7 @@ export default tseslint.config(
       },
       parserOptions: {
         project: true,
+        // @ts-expect-error will work in mjs
         tsconfigRootDir: import.meta.dirname,
       },
     },
