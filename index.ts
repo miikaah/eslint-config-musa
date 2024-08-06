@@ -3,9 +3,9 @@ import eslint from "@eslint/js";
 import eslintConfigPrettier from "eslint-config-prettier";
 import eslintPluginPrettierRecommended from "eslint-plugin-prettier/recommended";
 import globals from "globals";
-import tseslint from "typescript-eslint";
+import tseslint, { type Config } from "typescript-eslint";
 
-export default tseslint.config(
+const config: Config = tseslint.config(
   eslint.configs.recommended,
   ...tseslint.configs.recommendedTypeChecked,
   eslintConfigPrettier,
@@ -23,8 +23,8 @@ export default tseslint.config(
       },
       parserOptions: {
         project: true,
-        // @ts-expect-error will work in mjs
-        tsconfigRootDir: import.meta.dirname,
+        // @ts-expect-error will work in js
+        tsconfigRootDir: __dirname,
       },
     },
     rules: {
@@ -52,3 +52,5 @@ export default tseslint.config(
     },
   },
 );
+
+export default config;
